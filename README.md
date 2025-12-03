@@ -1,7 +1,9 @@
-# STALKER_STORY — Documentation (Terminal-based Python Text Game)
+# S.T.A.L.K.E.R.: Story
 
 ## Table of Contents
 - [Purpose](#purpose)  
+- [Notes](#notes)
+- [CLI/Legacy](#clilegacy)
 - [Inspiration: Based on S.T.A.L.K.E.R.](#inspiration-based-on-stalker)  
 - [High-level Design Goals](#high-level-design-goals)  
 - [Core Systems & Features (Terminal & Python-focused)](#core-systems--features-terminal--python-focused)  
@@ -10,10 +12,16 @@
 - [Milestones for a Complete Game](#milestones-for-a-complete-game)  
 - [Non-goals & Legal Notes](#non-goals--legal-notes)
 - [☢️ S.T.A.L.K.E.R. Lore Timeline](#️-stalker-lore-timeline)
----
+
 
 ## Purpose
 Document the vision, scope, and design goals for STALKER_STORY as a single-player, terminal-based text narrative/survival game implemented in Python. This document outlines systems, architecture patterns, and practical implementation and release targets for a playable CLI experience.
+
+## Notes
+While mainly origination as a CLI program, it has moved to basic gui, it is still text based, but GUI allows easier binary distribution and compatibility across operating systems. With this, a basic gui map was also added, being a simple dot on a grid, better showing where the player is located. It still runs simply and can still be launched through CLI with `$ python3 main.py`.
+
+## CLI/Legacy
+Want the original terminal based version? Click [here](https://raw.githubusercontent.com/AvaCaine/Stalker-Story/refs/tags/V1.0.0/main.py) to access the file, then on your keyboard, type/press `ctrl+s` to save it.
 
 ## Inspiration: Based on S.T.A.L.K.E.R.
 - High-level inspiration: atmosphere, tension, exploration, emergent encounters — translated into text-driven mechanics and procedural events.
