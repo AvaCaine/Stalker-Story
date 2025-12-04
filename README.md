@@ -11,7 +11,7 @@
 - [Technical Goals & Constraints (Python CLI)](#technical-goals--constraints-python-cli)  
 - [Milestones for a Complete Game](#milestones-for-a-complete-game)  
 - [Non-goals & Legal Notes](#non-goals--legal-notes)
-- [Official Installation]()
+- [Official Installation](#official-installation)
 - [☢️ S.T.A.L.K.E.R. Lore Timeline](#️-stalker-lore-timeline)
 
 
