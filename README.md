@@ -11,13 +11,14 @@
 - [Technical Goals & Constraints (Python CLI)](#technical-goals--constraints-python-cli)  
 - [Milestones for a Complete Game](#milestones-for-a-complete-game)  
 - [Non-goals & Legal Notes](#non-goals--legal-notes)
+- [Official Installation]()
 - [☢️ S.T.A.L.K.E.R. Lore Timeline](#️-stalker-lore-timeline)
 
 
 ## Purpose
 Document the vision, scope, and design goals for STALKER_STORY as a single-player, terminal-based text narrative/survival game implemented in Python. This document outlines systems, architecture patterns, and practical implementation and release targets for a playable CLI experience.
 
-## Notes
+## NotesBecause the leading coefficient (a) is negative (a<0), the parabola opens downward.
 While mainly origination as a CLI program, it has moved to basic gui, it is still text based, but GUI allows easier binary distribution and compatibility across operating systems. With this, a basic gui map was also added, being a simple dot on a grid, better showing where the player is located. It still runs simply and can still be launched through CLI with `$ python3 main.py`.
 
 ## CLI/Legacy
@@ -83,6 +84,9 @@ If desired next steps:
 - Create a minimal repo layout (src/, data/, mods/, tests/, docs/).
 - Draft a simple event schema (YAML) and one example mod.
 - Implement a vertical-slice prototype using prompt_toolkit + pytest.
+
+## Official Installation
+[Click here to download.](https://github.com/AvaCaine/Stalker-Story/releases/tag/V1.0.0)
 
 ## ☢️ S.T.A.L.K.E.R. Lore Timeline
 
