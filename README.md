@@ -18,7 +18,7 @@
 ## Purpose
 Document the vision, scope, and design goals for STALKER_STORY as a single-player, terminal-based text narrative/survival game implemented in Python. This document outlines systems, architecture patterns, and practical implementation and release targets for a playable CLI experience.
 
-## NotesBecause the leading coefficient (a) is negative (a<0), the parabola opens downward.
+## Notes
 While mainly origination as a CLI program, it has moved to basic gui, it is still text based, but GUI allows easier binary distribution and compatibility across operating systems. With this, a basic gui map was also added, being a simple dot on a grid, better showing where the player is located. It still runs simply and can still be launched through CLI with `$ python3 main.py`.
 
 ## CLI/Legacy

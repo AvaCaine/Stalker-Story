@@ -1,0 +1,23 @@
+{
+    "name": "Ava",
+    "health": 11,
+    "inventory": {
+        "Makarov PM Pistol": 1,
+        "9x18mm PM Rounds": 6,
+        "Field Dressing": 8,
+        "Rusty 5.45mm Rounds": 12,
+        "Tourist's Delight Can": 10,
+        "Vodka (Cure Radiation)": 5,
+        "High-Grade 9x19mm Rounds": 2,
+        "Basic Repair Kit": 1
+    },
+    "reputation": {
+        "Loners": 50,
+        "Bandits": -30,
+        "Duty": 10,
+        "Freedom": -10,
+        "Ecologists": 75
+    },
+    "x": 3,
+    "y": 10
+}
