@@ -3,12 +3,11 @@
 ## Table of Contents
 - [Purpose](#purpose)  
 - [Notes](#notes)
-- [CLI/Legacy](#clilegacy)
 - [Inspiration: Based on S.T.A.L.K.E.R.](#inspiration-based-on-stalker)  
 - [High-level Design Goals](#high-level-design-goals)  
 - [Core Systems & Features (Terminal & Python-focused)](#core-systems--features-terminal--python-focused)  
 - [Art, Audio, Narrative & Worldbuilding Goals (Text-first)](#art-audio-narrative--worldbuilding-goals-text-first)  
-- [Technical Goals & Constraints (Python CLI)](#technical-goals--constraints-python-cli)  
+- [Technical Goals & Constraints (Python)](#technical-goals--constraints-python)  
 - [Milestones for a Complete Game](#milestones-for-a-complete-game)  
 - [Non-goals & Legal Notes](#non-goals--legal-notes)
 - [Official Installation](#official-installation)
@@ -16,13 +15,10 @@
 
 
 ## Purpose
-Document the vision, scope, and design goals for STALKER_STORY as a single-player, terminal-based text narrative/survival game implemented in Python. This document outlines systems, architecture patterns, and practical implementation and release targets for a playable CLI experience.
+Document the vision, scope, and design goals for STALKER_STORY as a single-player, text-based narrative/survival game implemented in Python. This document outlines systems, architecture patterns, and practical implementation and release targets for a playable experience.
 
 ## Notes
-While mainly origination as a CLI program, it has moved to basic gui, it is still text based, but GUI allows easier binary distribution and compatibility across operating systems. With this, a basic gui map was also added, being a simple dot on a grid, better showing where the player is located. It still runs simply and can still be launched through CLI with `$ python3 main.py`.
-
-## CLI/Legacy
-Want the original terminal based version? Click [here](https://raw.githubusercontent.com/AvaCaine/Stalker-Story/refs/heads/main/legacy.py) to access the file, then on your keyboard, type/press `ctrl+s` to save it.
+The game features a text-based interface with a basic GUI that includes a simple dot-on-grid map to show player location. It provides an immersive experience across operating systems through executable distribution.
 
 ## Inspiration: Based on S.T.A.L.K.E.R.
 - High-level inspiration: atmosphere, tension, exploration, emergent encounters — translated into text-driven mechanics and procedural events.
@@ -86,7 +82,7 @@ If desired next steps:
 - Implement a vertical-slice prototype using prompt_toolkit + pytest.
 
 ## Official Installation
-[Click here to download.](https://github.com/AvaCaine/Stalker-Story/releases/tag/V1.0.0)
+[Click here to download latest.](https://github.com/AvaCaine/Stalker-Story/releases/tag/v1.0.0)
 
 ## ☢️ S.T.A.L.K.E.R. Lore Timeline
 
