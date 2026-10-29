@@ -1,0 +1,531 @@
+<h1>S.T.A.L.K.E.R.: Story</h1>
+<h2>Table of Contents</h2>
+<ul>
+  <li><a href="#purpose">Purpose</a> </li>
+  <li><a href="#notes">Notes</a></li>
+  <li><a href="#inspiration-based-on-stalker">Inspiration: Based on S.T.A.L.K.E.R.</a> </li>
+  <li><a href="#high-level-design-goals">High-level Design Goals</a> </li>
+  <li><a href="#core-systems--features-terminal--python-focused">Core Systems &amp; Features (Terminal &amp; Python-focused)</a> </li>
+  <li><a href="#art-audio-narrative--worldbuilding-goals-text-first">Art, Audio, Narrative &amp; Worldbuilding Goals (Text-first)</a> </li>
+  <li><a href="#technical-goals--constraints-python">Technical Goals &amp; Constraints (Python)</a> </li>
+  <li><a href="#milestones-for-a-complete-game">Milestones for a Complete Game</a> </li>
+  <li><a href="#non-goals--legal-notes">Non-goals &amp; Legal Notes</a></li>
+  <li><a href="#official-installation">Official Installation</a></li>
+  <li><a href="#%EF%B8%8F-stalker-lore-timeline">☢️ S.T.A.L.K.E.R. Lore Timeline</a></li>
+</ul>
+<h2>Purpose</h2>
+<p>Document the vision, scope, and design goals for STALKER_STORY as a single-player, text-based narrative/survival game implemented in Python. This document outlines systems, architecture patterns, and practical implementation and release targets for a playable experience.</p>
+<h2>Notes</h2>
+<p>The game features a text-based interface with a basic GUI that includes a simple dot-on-grid map to show player location. It provides an immersive experience across operating systems through executable distribution.</p>
+<h2>Inspiration: Based on S.T.A.L.K.E.R.</h2>
+<ul>
+  <li>High-level inspiration: atmosphere, tension, exploration, emergent encounters — translated into text-driven mechanics and procedural events.</li>
+  <li>All content and writing are original; mechanics and tone are influenced by the S.T.A.L.K.E.R. family without using proprietary material.</li>
+  <li>Aim: capture systemic emergent storytelling in a text-first interface.</li>
+</ul>
+<h2>High-level Design Goals</h2>
+<ul>
+  <li>Deliver an immersive, low-dependency CLI experience that emphasizes choice, risk-reward, and exploration through descriptive text.</li>
+  <li>Keep controls simple and keyboard-first; support replayability via procedural encounters and branching narrative.</li>
+  <li>Minimize micromanagement while preserving survival tension (resources, hazards, reputation).</li>
+  <li>Make content data-driven so community mods (text files, JSON/YAML) can extend the game.</li>
+</ul>
+<h2>Core Systems &amp; Features (Terminal &amp; Python-focused)</h2>
+<ul>
+  <li>World model: zone graph (nodes = locations). Locations described in text, with POIs and short ASCII/ANSI art optional.</li>
+  <li>Anomaly system: textual descriptions, clear cues, predictable mechanics (timers, prox triggers) implemented as deterministic/semi-random events.</li>
+  <li>Inventory &amp; items: simple item objects stored in JSON-compatible formats; weight, uses, degradation handled in Python.</li>
+  <li>Encounters: dynamic event spawner that schedules procedural or scripted text encounters to produce emergent stories.</li>
+  <li>NPC factions &amp; reputation: numeric faction scores influencing available dialogue/actions and procedural mission offers.</li>
+  <li>Combat &amp; tactics: turn-based text encounters with choices (shoot, hide, throw item, use environment) and RNG for tension.</li>
+  <li>Survival loop: hunger, fatigue, contamination; textual feedback and simple status effects that influence options.</li>
+  <li>Quest system: mixed scripted narrative missions plus procedurally-generated gigs (data-driven).</li>
+  <li>Save/load: portable JSON or SQLite save format; autosave and manual save slots.</li>
+  <li>Input parsing: command-based interface with clear verbs (go, examine, use, talk, inventory). Support hotkeys and short commands.</li>
+  <li>Accessibility: clear text layout, adjustable colors/contrast, optional verbose/concise modes.</li>
+  <li>Testing hooks: deterministic seeds for reproducible procedural runs and automated tests.</li>
+</ul>
+<h2>Art, Audio, Narrative &amp; Worldbuilding Goals (Text-first)</h2>
+<ul>
+  <li>Visual: focus on evocative prose and minimal ASCII/ANSI art for mood; no high-fidelity assets required.</li>
+  <li>Audio: optional short sound cues via cross-platform Python audio libs; always optional and fallback to silent mode.</li>
+  <li>Worldbuilding: reveal lore via environmental descriptions, notes, NPC dialogue, and emergent event outcomes.</li>
+  <li>Writing: concise, atmospheric text prioritized over large scripted cinematic scenes; branching lines for key characters.</li>
+</ul>
+<h2>Technical Goals &amp; Constraints (Python CLI)</h2>
+<ul>
+  <li>Language: Python 3.9+; prefer wide compatibility (Linux, macOS, Windows consoles).</li>
+  <li>Recommended libs: prompt_toolkit or rich for input/UI, click/argparse for CLI options, tinydb or sqlite for structured data, pytest for tests.</li>
+  <li>Architecture: separation of core engine (game loop, state, RNG) from presentation layer (terminal renderer). CLI renderer should be replaceable for future GUIs.</li>
+  <li>Data-driven content: JSON/YAML/CSV definitions for items, factions, events, quests, and dialogue. Scripted events expressed in a simple domain-specific format (YAML/JSON).</li>
+  <li>Packaging: distributable as a pip package and standalone executable via PyInstaller for non-dev users.</li>
+  <li>Performance: lightweight; single-process, low memory footprint. Deterministic RNG seed for reproducibility and testing.</li>
+  <li>Modding: support a mods/ directory where JSON/YAML overrides or additions are loaded at runtime. Provide a simple mod loader and schema validation.</li>
+  <li>Logging &amp; debugging: configurable logging levels; developer mode with verbose state dumps and reproducible seeds.</li>
+  <li>Internationalization: plan for UTF-8 text support; externalized strings for future translation.</li>
+</ul>
+<h2>Milestones for a Complete Game</h2>
+<ul>
+  <li>Prototype (vertical slice): playable zone, core loop (move/examine/encounter/save), simple inventory, one faction, and one anomaly type.</li>
+  <li>Alpha: multiple zones, faction interactions, procedural encounters, quest framework, save/load, CLI polish.</li>
+  <li>Beta: expanded content, mod support, deterministic testing suite, packaging, basic accessibility options.</li>
+  <li>Release: complete narrative arc, polished writing, documentation, modding examples, installers or wheels.</li>
+  <li>Post-release: community content hub, curated mods, optional audio packs.</li>
+</ul>
+<h2>Non-goals &amp; Legal Notes</h2>
+<ul>
+  <li>No use of proprietary S.T.A.L.K.E.R. assets, story text, or trademarks.</li>
+  <li>The project is original IP that channels similar systems and tone; avoid copying trademarked content.</li>
+  <li>Do not include copyrighted text from other works in shipped content.</li>
+</ul>
+<hr>
+<p>If desired next steps:</p>
+<ul>
+  <li>Create a minimal repo layout (src/, data/, mods/, tests/, docs/).</li>
+  <li>Draft a simple event schema (YAML) and one example mod.</li>
+  <li>Implement a vertical-slice prototype using prompt_toolkit + pytest.</li>
+</ul>
+<h2>Official Installation</h2>
+<p><a href="https://github.com/AvaCaine/Stalker-Story/releases/tag/v1.0.0">Click here to download latest.</a></p>
+<h2>☢️ S.T.A.L.K.E.R. Lore Timeline</h2>
+<p>This timeline details the key events in the lore of the <em>S.T.A.L.K.E.R.</em> series, focusing on the history of the <strong>Chernobyl Exclusion Zone</strong> and the clandestine research that led to its anomalous state.</p>
+<hr>
+<h3>Pre-Disaster Events (Unknown - 1986)</h3>
+<table>
+  <thead>
+    <tr>
+      <th align="left">Year</th>
+      <th align="left">Event</th>
+      <th align="left">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><strong>Unknown</strong></td>
+      <td align="left"><strong>Limansk is founded</strong> as a closed city for scientists working on <strong>mind-affecting radio-waves</strong>.</td>
+      <td align="left">Notoriety spreads among neighboring villages.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1960s</strong></td>
+      <td align="left">The <strong>Institute of Crop Selection and Genetics</strong> is established as a cover for <strong>Soviet consciousness control research</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1966</strong></td>
+      <td align="left"><strong>Project IRCD-1</strong> (Individual Remote Communication Device), or <strong>"FIBER-1P"</strong>, begins, then is suspended.</td>
+      <td align="left">Led by Associate Prof. Sakharov.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1976</strong></td>
+      <td align="left">Dr. Orlov completes a test of the <strong>Duga array</strong> aimed at <strong>mapping the Noosphere</strong>.</td>
+      <td align="left">Information stored at the lab under Promin CMD Factory.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1981</strong></td>
+      <td align="left">Construction begins on the science center that would become the <strong>Dark Valley</strong> lab.</td>
+      <td align="left"></td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+<h3>The First Disaster and Immediate Aftermath (1986 - 2005)</h3>
+<table>
+  <thead>
+    <tr>
+      <th align="left">Year</th>
+      <th align="left">Date/Period</th>
+      <th align="left">Event</th>
+      <th align="left">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><strong>1986</strong></td>
+      <td align="left">April 26</td>
+      <td align="left"><strong>Chernobyl Disaster</strong>: Reactor Four of the <strong>CNPP explodes</strong> around 1:23 AM.</td>
+      <td align="left">Releases dangerous radioactive materials.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">April 28</td>
+      <td align="left"><strong>Pripyat</strong> and other settlements are <strong>evacuated</strong>.</td>
+      <td align="left">Liquidators build the <strong>Sarcophagus</strong>. The <strong>Chernobyl Exclusion Zone</strong> is cordoned off.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Post-Disaster</strong></td>
+      <td align="left">The Institute of Crop Selection and Genetics is shut down. The <strong>Skadovsk</strong> is grounded in <strong>Zaton</strong>.</td>
+      <td align="left">Military facility blueprints moved to the Prometheus Movie Theater.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1987-1989</strong></td>
+      <td align="left"></td>
+      <td align="left">Institute re-established as the <strong>Agroprom Research Institute</strong>.</td>
+      <td align="left">A vehicle factory is set up near Agroprom.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1989</strong></td>
+      <td align="left"></td>
+      <td align="left"><strong>C-Consciousness Project begins</strong>, led by scientists from <strong>The Group</strong>.</td>
+      <td align="left"><strong>FIBER-1P</strong> is successfully tested; <strong>psi-radiation</strong> linked to an external information field.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1991</strong></td>
+      <td align="left">December 26</td>
+      <td align="left"><strong>Soviet Union collapses</strong>. Many clandestine projects lose state funding, but researchers continue operations.</td>
+      <td align="left">The Group receives funding from the Regulatory Board.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Post-Collapse</strong></td>
+      <td align="left">Ideas drafted to grow a <strong>giant brain at Lab X-16</strong> to create a psi-radiation source. <strong>Beta Psi radiation</strong> discovered.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1993</strong></td>
+      <td align="left"></td>
+      <td align="left">First test of <strong>Raduga</strong> (Rainbow) fails; deadly to sentient beings due to Noosphere interference.</td>
+      <td align="left">Suggested modification to an aggression-supressing device.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1995</strong></td>
+      <td align="left"></td>
+      <td align="left">First <strong>Caribbean Experiment</strong> at <strong>Lab X-6</strong> accidentally creates the first <strong>Alpha Artifact</strong>.</td>
+      <td align="left">Occurs at a receiving vessel in the Caribbean Sea.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1996</strong></td>
+      <td align="left">Fall</td>
+      <td align="left">Dr. Kaymanov tests the first pod at Orbita Station. Valentyn Dalin plans the <strong>eight-pod system</strong> for a <strong>Common Consciousness</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1998</strong></td>
+      <td align="left">March 6</td>
+      <td align="left">Engineers claim <strong>six field Generators</strong> have been built deep in the Zone.</td>
+      <td align="left">Speculation on psychic tests abounds.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">September</td>
+      <td align="left">Scouting for the <strong>C-Consciousness installation</strong> (<strong>Laboratory X7</strong>) site is underway.</td>
+      <td align="left">Azimuth Station, Sphere, and Krug antenna complex used to probe the Noosphere.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>1999</strong></td>
+      <td align="left">February 22</td>
+      <td align="left">Ukrainian government launches an official investigation into illegal experiments in the Zone.</td>
+      <td align="left">Security Service of Ukraine (SSU) sends a special commission. Disturbing memos by O. O. Dobrynin uncovered.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2001</strong></td>
+      <td align="left"></td>
+      <td align="left">Zone begins to attract attention. <strong>Pripyat</strong> is a hot spot for strange phenomena. <strong>Zone is completely sealed off</strong> after a bus of tourists disappears.</td>
+      <td align="left">The 1st generation <strong>Exoskeleton</strong> test prototype is assembled.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2003</strong></td>
+      <td align="left">March</td>
+      <td align="left">Final assembly of the <strong>C-Consciousness installation (Lab X7)</strong> is underway. <strong>Lab X11</strong> is being built to house the <strong>Alpha Artifact</strong>.</td>
+      <td align="left">Agroprom Research Institute begins working for The Group.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2004</strong></td>
+      <td align="left"></td>
+      <td align="left">Top secret <strong>electromagnetic rifle project</strong> (Gauss rifle) at the <strong>Jupiter factory is cancelled</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2005</strong></td>
+      <td align="left"></td>
+      <td align="left">Unnatural forces influence a wider area; significant changes in weather, including <strong>hurricane winds and tremors</strong>.</td>
+      <td align="left"></td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+<h3>The Second Disaster and the Rise of Stalkers (2006 - 2011)</h3>
+<table>
+  <thead>
+    <tr>
+      <th align="left">Year</th>
+      <th align="left">Date/Period</th>
+      <th align="left">Event</th>
+      <th align="left">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><strong>2006</strong></td>
+      <td align="left">January</td>
+      <td align="left">Rift forms between C-Consciousness scientists. Dr. Kaymanov is replaced by a <strong>Variometer</strong> in the eighth pod.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">March 4</td>
+      <td align="left">A phenomena of <strong>blinding light</strong> illuminates the sky above the CNPP for two hours.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">April 12, 14:33 +2 GMT</td>
+      <td align="left">The phenomena repeats, followed by a <strong>tremendous thunderous crash</strong> and a <strong>6.9 magnitude earthquake</strong>. This is the <strong>"Second Disaster."</strong></td>
+      <td align="left">Deadly energy disturbances rage; center of the explosion is $\ge 1$ km from CNPP.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">May 21</td>
+      <td align="left">Prof. Dvupalov experiments with controlling mutants with a <strong>Leash</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">June 10</td>
+      <td align="left">The Zone abruptly grows <strong>five kilometers bigger</strong> (the <strong>"Second Disaster"</strong>). <strong>New Zone manifests</strong> with defiance of scientific laws.</td>
+      <td align="left">Most Military and lab staff perish.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Post-Disaster</strong></td>
+      <td align="left">Ukrainian Military's nuclear attempt fails; troops are scattered. Captain Tachenko's survivors form <strong>Duty</strong>. Dr. Kaymanov flees, assumes identity of <strong>Doctor</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2007</strong></td>
+      <td align="left"></td>
+      <td align="left">Scientists are unable to explain the Second Disaster. Expeditions fail. Survivors speak of <strong>mutated animals</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2008</strong></td>
+      <td align="left"></td>
+      <td align="left"><strong>VPC Mirror facility</strong> (used to study induced illusions) shuts down.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2009</strong></td>
+      <td align="left">September 28</td>
+      <td align="left">Kiev scientists create a special device for <strong>detecting anomalous activity</strong>. Winter expedition travels 1km into the Zone.</td>
+      <td align="left">Strelok, Fang, and Ghost wander into Doctor's swamp and make first contact.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2010</strong></td>
+      <td align="left">August 17</td>
+      <td align="left">Expeditions penetrate further. First artifacts located, and first <strong>blowouts</strong> observed.</td>
+      <td align="left"><strong>Strelok</strong> brings the <strong>Heart of Chornobyl</strong> to Doctor.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2011</strong></td>
+      <td align="left"><strong>Early</strong></td>
+      <td align="left">Second Military raid to the CNPP fails, triggering a serious <strong>emission</strong> that destroys much of the force. <strong>Zvyagintsev</strong> is one of the few survivors.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>One Month Later</strong></td>
+      <td align="left">Zvyagintsev and other Military survivors are absorbed into <strong>Duty</strong>, significantly boosting its manpower.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Growing Presence</strong></td>
+      <td align="left"><strong>Stalkers</strong> (amateur researchers, scavengers, adventurers) begin entering the Zone for 'artifacts.' SSU initially ignores, but later re-evaluates policy.</td>
+      <td align="left">Stalkers report <strong>'zombies'</strong>.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">February 4</td>
+      <td align="left">Ukrainian government retaliates against 'illegal' Stalkers; many arrested and trading posts closed.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">Summer</td>
+      <td align="left"><strong>Strelok's group</strong> reaches the <strong>Sarcophagus</strong> and the <strong>Wish Granter</strong>. Strelok is gravely wounded and nursed back to health by Doctor.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">Early September</td>
+      <td align="left">Large group of Stalkers disappears near the <strong>Brain Scorcher</strong> and re-emerges as the heavily-armed, radicalized <strong>Monolith</strong> faction.</td>
+      <td align="left">Monolith establishes HQ at the CNPP, guarding the Wish Granter.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"></td>
+      <td align="left">Strelok, Fang, and Ghost successfully penetrate the Brain Scorcher. The Zone triggers an <strong>extremely severe emission</strong>, reshaping the entire landscape.</td>
+      <td align="left">Paths change, anomalies become invisible. Military presence at Army Warehouses almost eradicated.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Post-Emission</strong></td>
+      <td align="left">Bandits under <strong>Yoga</strong> take over the <strong>Garbage</strong> and establish a punitive order, demanding 'taxes' from Stalkers. Loners eventually execute the corrupt Major Khaletskiy at the Cordon Outpost.</td>
+      <td align="left"><strong>Freedom</strong> relocates its main base to the <strong>Army Warehouses</strong>.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">September 3</td>
+      <td align="left">E. F. Kalancha receives orders to observe Noosphere fluctuations.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">September 10</td>
+      <td align="left"><strong>Clear Sky begins</strong> - Scar, caught in the blowout, is tasked with eliminating Strelok's group.</td>
+      <td align="left">N. A. Lebedev receives orders to accept Scar as agent A:MS-017 and eliminate Strelok, agent A:LS-013.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">October 25</td>
+      <td align="left">Ukrainian government authorizes a <strong>shoot-on-sight policy</strong> towards Stalkers.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">Late</td>
+      <td align="left">Duty and Freedom reach <strong>Limansk</strong>, leading to a battle for control. Aggressive Stalkers dressed like Monolith sighted near the Brain Scorcher.</td>
+      <td align="left">Clear Sky's operation to penetrate the CNPP in pursuit of Strelok is annihilated by another severe emission.</td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+<h3>Game Events and Later History (2012 - 2021)</h3>
+<table>
+  <thead>
+    <tr>
+      <th align="left">Year</th>
+      <th align="left">Date/Period</th>
+      <th align="left">Event</th>
+      <th align="left">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><strong>2012</strong></td>
+      <td align="left">May 1, 5:30 +2 GMT</td>
+      <td align="left"><em><strong>Shadow of Chernobyl</strong></em> <strong>begins</strong> - <strong>Strelok</strong> (the <strong>Marked One</strong>) awakes at Sidorovich's bunker.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">May 12-25</td>
+      <td align="left">Captain Maksimenko investigates the Agroprom Research Institute, revealing it as a front for The Group.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Mid</strong></td>
+      <td align="left"><strong>Strelok disables the Brain Scorcher</strong>, opening the path to the center of the Zone.</td>
+      <td align="left">Military stages <strong>Operation Monolith</strong> to reclaim CNPP, which fails due to an emission.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Late</strong></td>
+      <td align="left"><strong>Strelok reaches the CNPP and destroys the C-Consciousness</strong>.</td>
+      <td align="left">Zone becomes more unstable; Monolith weakens; Strider and his squad are released from Monolith control.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Post-CNPP</strong></td>
+      <td align="left"><strong>Beard</strong> and Grouse establish a camp at the grounded ship <strong>Skadovsk</strong> in <strong>Zaton</strong>. Sultan and his Bandits also entrench themselves there.</td>
+      <td align="left">Garry discovers a path to <strong>Jupiter</strong>; a camp is established at <strong>Yanov Station</strong>.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"></td>
+      <td align="left">Loki (Freedom) and Shulga (Duty) forces clash at Yanov. Zulu senses an emission, leading to a <strong>ceasefire</strong> and Yanov being declared <strong>neutral territory</strong>.</td>
+      <td align="left">Zulu later retires from Duty.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"></td>
+      <td align="left">Ukrainian government executes <strong>Operation Fairway</strong> to restore control; it immediately results in disaster.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">August 3, 9:00 +2GMT</td>
+      <td align="left"><em><strong>Call of Pripyat</strong></em> <strong>begins</strong> - SBU agent <strong>Major Degtyarev</strong> is dispatched undercover to investigate Operation Fairway's failure.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Late</strong></td>
+      <td align="left">Degtyarev assembles a squad, links up with Fairway survivors in Pripyat, and salvages the operation, re-establishing comms.</td>
+      <td align="left"><strong>Strelok</strong> joins the group for evacuation. Degtyarev helps <strong>Strider</strong> form <strong>Noontide</strong>.</td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2013</strong></td>
+      <td align="left"></td>
+      <td align="left"><strong>D4 Treaty</strong> is signed.</td>
+      <td align="left">Proxy war begins between Duty and Freedom in the Garbage.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"></td>
+      <td align="left"><strong>Operation Zenith</strong> to shut down the Generators is executed, resulting in <strong>total failure</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2014</strong></td>
+      <td align="left"><strong>Sometime 2014-2015</strong></td>
+      <td align="left">Duty cedes <strong>Rostok</strong> to Freedom. Freedom abandons Army Warehouses and moves to Rostok. Duty moves to the Cement factory.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"></td>
+      <td align="left">Sultan and his bandits stage a successful coup, taking the <em>Skadovsk</em> from Beard. The ship is renamed the <em>Sultansk</em>.</td>
+      <td align="left">Beard leaves Zaton and joins Degtyarev in Pripyat.</td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left">February 17</td>
+      <td align="left"><strong>Cpt. Sukhin</strong> is admitted to a military hospital with partial <strong>retrograde amnesia</strong> after an alleged shootout with Monolith.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2016</strong></td>
+      <td align="left">November</td>
+      <td align="left">The <strong>4th generation Exoskeleton project</strong> begins at <strong>SIRCAA</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2017</strong></td>
+      <td align="left">March 3</td>
+      <td align="left"><strong>Strelok records a message to himself</strong> due to failing memory, recalling his attempt to <strong>sabotage Laboratory X-11</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2018</strong></td>
+      <td align="left">October</td>
+      <td align="left"><strong>4th generation Exoskeleton</strong> is unveiled.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2019</strong></td>
+      <td align="left"></td>
+      <td align="left">The second <strong>Caribbean Experiment</strong> is attempted at <strong>Laboratory X-11</strong>, resulting in <strong>total failure</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2020</strong></td>
+      <td align="left"></td>
+      <td align="left">Beard leaves Pripyat and returns to <strong>Zaton</strong>, setting up aboard the <strong>Shevchenko</strong>.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"><strong>2021</strong></td>
+      <td align="left"></td>
+      <td align="left"><strong>Skif's apartment is destroyed by an anomaly</strong>. He finds a dummy Alpha Artifact.</td>
+      <td align="left"></td>
+    </tr>
+    <tr>
+      <td align="left"></td>
+      <td align="left"><strong>Current</strong></td>
+      <td align="left"><em><strong>Heart of Chornobyl</strong></em> <strong>begins</strong> - <strong>Skif</strong> enters the Zone to investigate the Alpha Artifact.</td>
+      <td align="left"></td>
+    </tr>
+  </tbody>
+</table>
